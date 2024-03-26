@@ -1,16 +1,39 @@
 #include <iostream>;
-#include "Character.h";
+#include <conio.h>;
 
-const int GREEN = 10;
-const int BLUE = 9;
-const int RED = 12;
+#include "Character.h";
+#include "Spawner.h";
+
+const int spawner_size = 20;
 
 void main() {
-	Character* character = new Character();
+	Spawner<Character, spawner_size>* spawner = new Spawner<Character, spawner_size>();
 
-	character->setColor(BLUE);
-	character->setPosition(10, 10);
-	character->draw();
+	bool keepDoingActions = true;
 
-	delete character;
+	do {
+		char action = _getch();
+
+		switch (action) {
+			case 'r':
+				spawner->activate(RED);
+				break;
+			case 'g':
+				spawner->activate(GREEN);
+				break;
+			case 'b':
+				spawner->activate(BLUE);
+				break;
+			case 'd':
+				spawner->deactivateRandom();
+				break;
+			case 'x':
+				keepDoingActions = false;
+				break;
+			default:
+				break;
+		}
+
+		spawner->draw();
+	} while (keepDoingActions);
 }
