@@ -11,7 +11,7 @@ Vector3<T> Vector3<T>::operator +(Vector3<T> other)
 template<Arithmetic T>
 Vector3<T> Vector3<T>::operator -(Vector3<T> other)
 {
-	return { x - other.x, y - y, z - other.z };
+	return { x - other.x, y - other.y, z - other.z };
 }
 
 
