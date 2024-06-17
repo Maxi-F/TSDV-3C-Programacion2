@@ -29,6 +29,8 @@ Drawing::Drawing(const char* fileName)
 			this->drawing += aux;
 			this->drawing += '\n';
 		}
+
+		inputStream.close();
 	}
 	else {
 		throw exception("Error opening file");
