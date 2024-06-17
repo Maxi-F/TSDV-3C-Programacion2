@@ -28,8 +28,11 @@ void main() {
 	}
 
 	sort(intsFromFiles.begin(), intsFromFiles.end(), [](int a, int b) { return a > b; });
+
+
 	vector<int>::iterator newUniqueEnd = unique(intsFromFiles.begin(), intsFromFiles.end());
 	intsFromFiles.erase(newUniqueEnd, intsFromFiles.end());
+	int newUnique = *(newUniqueEnd - 1);
 
 	showObtainedNumbers(intsFromFiles, "Sorted and unique numbers");
 
@@ -54,8 +57,9 @@ void saveInFile(vector<int>& ints, string filename) {
 		int numbersQuantity = ints.size();
 		file.write((char*)&numbersQuantity, sizeof(int));
 
-		for (int i = 0; i < numbersQuantity; i++) {
-			file.write((char*)&ints[i], sizeof(int));
+		for (vector<int>::iterator it = ints.begin(); it < ints.end(); it++) {
+			int number = *it;
+			file.write((char*)&number, sizeof(int));
 		}
 
 		file.close();
@@ -92,8 +96,10 @@ void readIntsFromFile(vector<int>& ints, string filename) {
 
 		ints.resize(previousSize + numbersQuantity);
 
-		for (int i = 0; i < numbersQuantity; i++) {
-			file.read((char*)&ints[previousSize + i], sizeof(int));
+		for (vector<int>::iterator it = ints.begin() + previousSize; it < ints.end(); it++) {
+			int number;
+			file.read((char*)&number, sizeof(int));
+			*it = number;
 		}
 
 		file.close();
