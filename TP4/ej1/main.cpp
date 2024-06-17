@@ -48,7 +48,7 @@ void showBeforeResponseNumbers() {
 void saveInFile(vector<int>& ints, string filename) {
 	ofstream file;
 
-	file.open(filename);
+	file.open(filename, ios::out | ios::binary);
 
 	if (file.is_open()) {
 		int numbersQuantity = ints.size();
@@ -84,7 +84,7 @@ void readIntsFromFile(vector<int>& ints, string filename) {
 	ifstream file;
 	int previousSize = ints.size();
 
-	file.open(filename);
+	file.open(filename, ios::in | ios::binary);
 
 	if (file.is_open()) {
 		int numbersQuantity;
