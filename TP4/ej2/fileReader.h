@@ -13,10 +13,6 @@ class FileReader {
 
 		string content = "";
 
-	private:
-		const char* filename;
-		std::map<char, int> charactersQuantities;
-
 		int getVowelsQuantities();
 		int getConsonantsQuantities();
 		int getWordsQuantities();
@@ -24,4 +20,8 @@ class FileReader {
 		int getPuntuactionMarksQuantities();
 
 		int getQuantityOf(char character);
+
+	private:
+		const char* filename;
+		std::map<char, int> charactersQuantities;
 };

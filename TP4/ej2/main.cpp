@@ -17,6 +17,7 @@ mutex readMutex;
 void readFile(string fileName, vector<FileReader*> *fileReaders, int delay, int index);
 bool allFilesReaded();
 int getRandomSecondsToSleep();
+void showAverages(vector<FileReader*> fileReaders);
 
 void main() {
 	srand(time(NULL));
@@ -51,9 +52,40 @@ void main() {
 		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 
+	showAverages(fileReaders);
+
 	for (int i = 0; i < fileReaders.size(); i++) {
 		delete fileReaders[i];
 	}
+}
+
+void showAverages(vector<FileReader*> fileReaders) {
+	cout << "Averages:" << endl;
+
+	float vowels = 0;
+	float consonants = 0;
+	float words = 0;
+	float characters = 0;
+	float puntuactionMarks = 0;
+	float fileReadersSize = static_cast<float>(fileReaders.size());
+
+	for (int i = 0; i < fileReaders.size(); i++) {
+		if (fileReaders[i] != nullptr) {
+			vowels += fileReaders[i]->getVowelsQuantities();
+			consonants += fileReaders[i]->getConsonantsQuantities();
+			words += fileReaders[i]->getWordsQuantities();
+			characters += fileReaders[i]->getCharactersQuantities();
+			puntuactionMarks += fileReaders[i]->getPuntuactionMarksQuantities();
+		}
+	}
+
+	cout << "Vowels: " << vowels / fileReadersSize << endl;
+	cout << "Consonants: " << consonants / fileReadersSize << endl;
+	cout << "Words: " << words / fileReadersSize << endl;
+	cout << "Characters: " << characters / fileReadersSize << endl;
+	cout << "Puntuaction marks: " << puntuactionMarks / fileReadersSize << endl;
+
+	cout << endl;
 }
 
 bool allFilesReaded() {
